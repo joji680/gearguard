@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>GearGuard – Login</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0705;font-family:Georgia,'Times New Roman',serif;color:#e8ddcf;}
+.panel{background:linear-gradient(180deg,#2b2014,#1c150c);border:3px solid #9c7637;border-radius:16px;padding:32px;max-width:340px;width:90%;text-align:center;}
+h1{margin:0 0 16px;color:#e8c170;}
+input{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:2px solid #9c7637;background:#0c0805;color:#e8ddcf;box-sizing:border-box;font-size:15px;}
+button{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:2px solid #9c7637;background:#33261a;color:#e8c170;font-size:15px;cursor:pointer;}
+button:hover{background:#473321;}
+.toggle{margin-top:14px;font-size:13px;color:#c9b89a;cursor:pointer;text-decoration:underline;}
+.err{color:#e87a5a;min-height:18px;font-size:13px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="panel">
+  <h1>⚙ GEARGUARD</h1>
+  <form id="form">
+    <input id="username" placeholder="Benutzername" autocomplete="username" required>
+    <input id="password" type="password" placeholder="Passwort" autocomplete="current-password" required>
+    <button type="submit" id="submitbtn">Anmelden</button>
+  </form>
+  <div class="err" id="err"></div>
+  <div class="toggle" id="toggle">Noch keinen Account? Registrieren</div>
+</div>
+<script>
+let mode='login';
+const form=document.getElementById('form'),err=document.getElementById('err'),toggle=document.getElementById('toggle'),submitbtn=document.getElementById('submitbtn');
+toggle.onclick=()=>{mode=mode==='login'?'register':'login';submitbtn.textContent=mode==='login'?'Anmelden':'Registrieren';toggle.textContent=mode==='login'?'Noch keinen Account? Registrieren':'Schon einen Account? Anmelden';err.textContent='';};
+form.onsubmit=async(e)=>{
+  e.preventDefault();
+  err.textContent='';
+  const username=document.getElementById('username').value.trim();
+  const password=document.getElementById('password').value;
+  try{
+    const r=await fetch('/api/'+mode,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+    const j=await r.json();
+    if(r.ok){location.href='/';}
+    else{err.textContent=j.error||'Fehler';}
+  }catch(ex){err.textContent='Verbindungsfehler';}
+};
+</script>
+</body>
+</html>
