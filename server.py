@@ -66,6 +66,19 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _send_static(self, relpath, content_type):
+        full = os.path.realpath(os.path.join(BASE, relpath.lstrip("/")))
+        if not full.startswith(BASE + os.sep) or not os.path.isfile(full):
+            self.send_error(404)
+            return
+        with open(full, "rb") as f:
+            body = f.read()
+        self.send_response(200)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def _read_json(self):
         length = int(self.headers.get("Content-Length", 0))
         raw = self.rfile.read(length) if length else b"{}"
@@ -93,6 +106,12 @@ class Handler(http.server.BaseHTTPRequestHandler):
             return
         if path == "/login.html":
             self._send_html("login.html")
+            return
+        if path.startswith("/css/") and path.endswith(".css"):
+            self._send_static(path, "text/css; charset=utf-8")
+            return
+        if path.startswith("/js/") and path.endswith(".js"):
+            self._send_static(path, "application/javascript; charset=utf-8")
             return
         if path == "/api/me":
             user = self._session_user()
