@@ -311,4 +311,5 @@
     cogsRun=0;clearSave();Audio.win();state='victory';renderEnd(true,keyLvl);show('death');
   }
   function submitScore(rm,cogs){const score=rm*1000+Math.min(cogs,999);fetch('/api/score',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({score,room:rm,cogs})}).catch(()=>{});}
+  function revive(){if(challengeMode||state!=='dead')return;player.hp=Math.round(player.maxHp*0.5);player.overheated=false;player.heat=0;player.iframe=1.5;state='play';show(null);}
   function computeSyn(){player.syn={};const a=[];for(const s of SYNERGIES)if(s.req.every(r=>player.relics.has(r))){player.syn[s.id]=true;a.push(s);}return a;}

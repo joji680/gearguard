@@ -26,6 +26,7 @@
       <div>GEGNER <b id="enemynum">0</b></div>
       <div>⚙ <b id="cogsrun">0</b></div>
     </div>
+    <div id="adhud" class="adslot hidden"></div>
   </div>
   <div id="toast"></div>
 
@@ -66,6 +67,7 @@
       </div>
       <div class="inputline" id="userline"></div>
       <div class="inputline" id="inputline">Eingabe: Tastatur &amp; Maus</div>
+      <div id="admenu" class="adslot hidden"></div>
     </div>
   </div>
 
@@ -126,6 +128,7 @@
       <p class="sub" id="choiceSub">Wähle eine Verbesserung.</p>
       <div id="cards" class="cards"></div>
       <button class="btn ghost focusable" id="rerollbtn">Neu würfeln (<span id="rerolls">0</span>)</button>
+      <div id="adupgrade" class="adslot hidden"></div>
     </div>
   </div>
 
@@ -188,6 +191,7 @@
         <div id="lbbody2"></div>
       </div>
       <div class="deathbtns">
+        <button class="btn big hidden focusable" id="reviveadbtn">📺 Video ansehen &amp; weiterspielen</button>
         <button class="btn big focusable" id="restartbtn">Neuer Lauf</button>
         <button class="btn big hidden focusable" id="continuebtn">Endlosmodus fortsetzen</button>
         <button class="btn focusable" id="menubtn">Zum Menü</button>
@@ -214,6 +218,7 @@
 <script src="/js/game.js"></script>
 <script src="/js/render.js"></script>
 <script src="/js/ui.js"></script>
+<script src="/js/ads.js"></script>
 <script src="/js/main.js"></script>
 </body>
 </html>

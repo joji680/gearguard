@@ -107,7 +107,8 @@
     $('deathshopbar').classList.toggle('hidden',challengeMode);$('shop').classList.toggle('hidden',challengeMode);
     $('lbresult').classList.toggle('hidden',!challengeMode);
     if(challengeMode)renderLeaderboard('lbbody2');else renderShop();
-    $('restartbtn').classList.remove('hidden');$('continuebtn').classList.toggle('hidden',!win);}
+    $('restartbtn').classList.remove('hidden');$('continuebtn').classList.toggle('hidden',!win);
+    $('reviveadbtn').classList.toggle('hidden',win||!Ads.rewardedAvailable());}
   $('mutebtn').onclick=toggleMute;
   $('mutebtn').textContent=meta.muted?'🔇 Aus':'🔊 An';
   $('continuebtn').onclick=()=>{state='play';endless=true;grid=null;show(null);nextRoom();};
