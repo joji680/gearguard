@@ -24,7 +24,7 @@ Du steuerst eine Dampfmaschine durch eine Folge von Räumen voller Gegner. Statt
 python3 server.py
 ```
 
-Server läuft auf `http://localhost:8000` (Port siehe `server.py`). Beim ersten Start wird `gearguard.db` automatisch mit den nötigen Tabellen angelegt.
+Server läuft auf `http://localhost:8080` (Port siehe `server.py`). Beim ersten Start wird `gearguard.db` automatisch mit den nötigen Tabellen angelegt.
 
 ## API
 
@@ -41,7 +41,19 @@ Server läuft auf `http://localhost:8000` (Port siehe `server.py`). Beim ersten 
 
 ```
 gearguard/
-├── index.html   # Spiel (UI + Logik)
-├── login.html   # Login/Registrierung
-└── server.py    # Backend: Auth, Saves, Leaderboard
+├── index.html        # Spiel-Markup
+├── login.html        # Login/Registrierung
+├── css/
+│   └── style.css     # Styles
+├── js/
+│   ├── data.js        # Konstanten: Upgrades, Gegner, Bosse, Biome, …
+│   ├── audio.js        # Sound-Engine
+│   ├── core.js          # Canvas/DOM-Basics ($, show, resize)
+│   ├── save.js            # Meta/Save-Persistenz + Server-Sync
+│   ├── input.js            # Tastatur/Maus/Touch/Gamepad, Fokus-Navigation
+│   ├── game.js              # Simulation: Arena, Gegner-KI, Update-Loop
+│   ├── render.js              # Canvas-Zeichenfunktionen
+│   ├── ui.js                  # Menüs/Overlays/Shop/Leaderboard
+│   └── main.js                  # Bootstrap + Game-Loop (lädt zuletzt)
+└── server.py          # Backend: Auth, Saves, Leaderboard, statische Assets
 ```
